@@ -2,7 +2,7 @@
 
 Browser game made with JavaScript and React
 
-Try game in online: http://keen-crowd.surge.sh/
+Try game online: http://keen-crowd.surge.sh/
 
 ![Example image](/public/tykkipeli.png)
 

@@ -1,0 +1,12 @@
+.gameArea {
+  width: 90%;
+  height: 90%;
+  border: 1px solid;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background: #1485db;
+  border-bottom: 10px solid brown;
+}

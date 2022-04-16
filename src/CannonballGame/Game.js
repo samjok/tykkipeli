@@ -1,6 +1,6 @@
 import Ball from "./Ball";
 import Cannon from "./Cannon";
-import Cannonball from "./Cannonball";
+import CannonballLauncher from "./Cannonball";
 import InputHandler from "./InputHandler";
 
 export default class Game {
@@ -11,9 +11,9 @@ export default class Game {
     this.points = 0;
     this.paused = true;
     this.cannon = new Cannon(this);
-    this.cannonball = new Cannonball(this);
-    this.ball = new Ball(this);
+    this.cannonballLauncher = new CannonballLauncher(this);
     this.handler = new InputHandler(this);
+    this.ball = new Ball(this);
     this.ball2 = new Ball(this);
     this.ball3 = new Ball(this);
     this.ball4 = new Ball(this);
@@ -23,14 +23,16 @@ export default class Game {
     this.ball8 = new Ball(this);
     this.ball9 = new Ball(this);
     this.ball10 = new Ball(this);
+    this.recordSaved = false;
   }
 
   reset() {
     this.points = 0;
+    this.recordSaved = false;
     this.gameOver = false;
     this.paused = false;
     this.cannon.reset();
-    this.cannonball.reset();
+    this.cannonballLauncher.reset();
     this.ball.reset();
     this.ball2.reset();
     this.ball3.reset();
@@ -49,8 +51,8 @@ export default class Game {
 
   update(deltaTime) {
     this.cannon.update(deltaTime);
-    this.cannonball.update(deltaTime);
     this.ball.update(deltaTime);
+    this.cannonballLauncher.update(deltaTime);
     this.points > 9 && this.ball2.update(deltaTime);
     this.points > 19 && this.ball3.update(deltaTime);
     this.points > 29 && this.ball4.update(deltaTime);
@@ -60,6 +62,12 @@ export default class Game {
     this.points > 69 && this.ball8.update(deltaTime);
     this.points > 79 && this.ball9.update(deltaTime);
     this.points > 89 && this.ball10.update(deltaTime);
+    if (
+      this.cannonballLauncher.amount - this.cannonballLauncher.counter ===
+      0
+    ) {
+      this.gameOver = true;
+    }
   }
 
   draw(ctx, deltaTime) {
@@ -73,12 +81,16 @@ export default class Game {
       ctx.strokeText(
         `Controls: Move cannon with arrowkeys and shoot with z`,
         570,
-        350
+        150
       );
     }
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, this.gameHeight - 20, 200, 20);
+    ctx.fillRect(this.gameWidth - 200, this.gameHeight - 20, 200, 20);
+    ctx.fillStyle = "green";
     this.cannon.draw(ctx);
-    this.cannonball.draw(ctx);
     this.ball.draw(ctx);
+    this.cannonballLauncher.draw(ctx);
     this.points > 9 && this.ball2.draw(ctx);
     this.points > 19 && this.ball3.draw(ctx);
     this.points > 29 && this.ball4.draw(ctx);
@@ -91,6 +103,14 @@ export default class Game {
     ctx.lineWidth = "2";
     ctx.font = "30px Arial";
     ctx.strokeText(`Points: ${this.points}`, 10, 50);
+    ctx.font = "26px Arial";
+    ctx.strokeText(
+      `Cannonballs: ${
+        this.cannonballLauncher.amount - this.cannonballLauncher.counter
+      }`,
+      10,
+      100
+    );
     if (this.gameOver) {
       ctx.font = "60px Arial";
       ctx.strokeText(

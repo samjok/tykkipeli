@@ -7,50 +7,46 @@ export default class Cannon {
     this.pipeAngle = Math.PI * 1.7;
 
     this.position = {
-      x: 0,
-      y: this.game.gameHeight - this.height
+      x: 200,
+      y: this.game.gameHeight - this.height,
     };
 
     this.speed = {
       x: 0,
-      y: 0
+      y: 0,
     };
 
-    this.maxSpeed = 10;
+    this.maxSpeed = 8;
   }
 
   reset() {
     this.position = {
-      x: 0,
-      y: this.game.gameHeight - this.height
+      x: 200,
+      y: this.game.gameHeight - this.height,
     };
 
     this.speed = {
       x: 0,
-      y: 0
+      y: 0,
     };
   }
 
   moveLeft() {
-    if (!this.game.gameOver && !this.game.paused)
-      this.speed.x = - this.maxSpeed;
+    if (!this.game.gameOver && !this.game.paused) this.speed.x = -this.maxSpeed;
   }
 
   moveRight() {
-    if (!this.game.gameOver && !this.game.paused)
-      this.speed.x = this.maxSpeed;
+    if (!this.game.gameOver && !this.game.paused) this.speed.x = this.maxSpeed;
   }
 
   turnPipeLeft() {
     if (!this.game.gameOver && !this.game.paused)
-      if (this.pipeAngle > Math.PI + 0.5)
-        this.pipeAngle -= 0.2;
+      if (this.pipeAngle > Math.PI + 0.3) this.pipeAngle -= 0.2;
   }
 
   turnPipeRight() {
     if (!this.game.gameOver && !this.game.paused)
-      if (this.pipeAngle < (2 * Math.PI) - 0.5)
-        this.pipeAngle += 0.2;
+      if (this.pipeAngle < 2 * Math.PI - 0.3) this.pipeAngle += 0.2;
   }
 
   stopX() {
@@ -64,14 +60,23 @@ export default class Cannon {
   draw(ctx) {
     ctx.beginPath();
     ctx.rect(this.position.x, this.position.y, this.width, this.height);
-    ctx.arc(this.position.x + (this.width / 2), this.position.y, 50, Math.PI, Math.PI * 2);
+    ctx.arc(
+      this.position.x + this.width / 2,
+      this.position.y,
+      50,
+      Math.PI,
+      Math.PI * 2
+    );
     ctx.lineWidth = "15";
-    ctx.moveTo(this.position.x + (this.width / 2), this.position.y);
+    ctx.moveTo(this.position.x + this.width / 2, this.position.y);
 
     // cannon pipe
-    ctx.lineTo(this.position.x + (this.width / 2) +
-      this.pipeLength * Math.cos(this.pipeAngle),
-      this.position.y + this.pipeLength * Math.sin(this.pipeAngle));
+    ctx.lineTo(
+      this.position.x +
+        this.width / 2 +
+        this.pipeLength * Math.cos(this.pipeAngle),
+      this.position.y + this.pipeLength * Math.sin(this.pipeAngle)
+    );
     ctx.stroke();
     ctx.fill();
   }
@@ -81,12 +86,12 @@ export default class Cannon {
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
 
-    if (this.position.x < 0) {
-      this.position.x = 0;
+    if (this.position.x < 200) {
+      this.position.x = 200;
       this.speed.x = 0;
     }
-    if (this.position.x > this.game.gameWidth - this.width) {
-      this.position.x = this.game.gameWidth - this.width;
+    if (this.position.x > this.game.gameWidth - this.width - 200) {
+      this.position.x = this.game.gameWidth - this.width - 200;
       this.speed.x = 0;
     }
     if (this.position.y < 0) {

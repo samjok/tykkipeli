@@ -87,7 +87,7 @@ export class GravityBall {
     Math.abs(this.game.cannon.position.x - this.position.x < 50) &&
     Math.abs(this.game.cannon.position.y - this.position.y < 50)
       ? (ctx.fillStyle = "green")
-      : (ctx.fillStyle = "green");
+      : (ctx.fillStyle = "black");
 
     ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
     ctx.fill();

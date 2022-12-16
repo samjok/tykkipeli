@@ -2,7 +2,7 @@
 
 Browser game made with JavaScript and React.
 
-Idea of the game is trying to dodge bouncing balss and shoot them by cannon. Move cannon an its pipe by arrow keys and shoot with z key.
+Idea of the game is trying to dodge bouncing balls and shoot them by a cannon. You can move the cannon and its pipe by arrow keys and shoot with z key.
 
 Try game online: http://keen-crowd.surge.sh/
 

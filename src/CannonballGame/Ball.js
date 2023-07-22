@@ -105,7 +105,7 @@ export default class Ball {
           this.game.points += 1;
           this.position = {
             x: this.game.gameWidth - 80,
-            y: this.game.gameHeight - 120,
+            y: this.game.gameHeight - 100,
           };
           this.speed = {
             x: -3.5,
